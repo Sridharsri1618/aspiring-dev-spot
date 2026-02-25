@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const roles = ["Python Developer", "Backend Enthusiast", "Full Stack Intern", "Problem Solver"];
+const roles = ["Python Developer", "DSA Enthusiast", "Problem Solver"];
 
 const TypingEffect = () => {
   const [currentRole, setCurrentRole] = useState(0);
