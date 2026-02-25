@@ -4,7 +4,7 @@ import { Download } from "lucide-react";
 
 const HeroSection = () => {
   return (
-    <section id="home" className="min-h-screen flex items-center py-20">
+    <section className="min-h-[80vh] flex items-center py-20">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="flex flex-col-reverse lg:flex-row items-center gap-12">
           <div className="flex-1 space-y-6">
@@ -14,7 +14,7 @@ const HeroSection = () => {
             </h1>
             <TypingEffect />
             <p className="text-muted-foreground max-w-lg leading-relaxed">
-              I build practical Python applications and consistently solve Data Structures problems. 
+              I build practical Python applications and consistently solve Data Structures problems.
               Passionate about backend systems and writing scalable clean code.
             </p>
             <a
