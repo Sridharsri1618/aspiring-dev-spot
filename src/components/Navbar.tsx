@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { Home, GraduationCap, FolderOpen, Award, Menu, X } from "lucide-react";
+import { Home, GraduationCap, FolderOpen, Award, Menu, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 
 const navLinks = [
@@ -9,17 +9,30 @@ const navLinks = [
   { to: "/certifications", label: "Certifications", icon: Award },
 ];
 
-const Navbar = () => {
+interface NavbarProps {
+  collapsed: boolean;
+  onToggleCollapse: () => void;
+}
+
+const Navbar = ({ collapsed, onToggleCollapse }: NavbarProps) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <>
       {/* Desktop sidebar */}
-      <aside className="hidden md:flex fixed left-0 top-0 z-50 h-screen w-56 bg-card border-r border-border flex-col py-8 px-4">
-        <div className="mb-10 px-3">
-          <NavLink to="/" className="text-lg font-bold text-foreground tracking-wide">
-            SRIDHAR <span className="text-primary">S</span>
-          </NavLink>
+      <aside className={`hidden md:flex fixed left-0 top-0 z-50 h-screen bg-card border-r border-border flex-col py-8 transition-all duration-300 ${collapsed ? "w-16 px-2" : "w-56 px-4"}`}>
+        <div className="mb-10 px-3 flex items-center justify-between">
+          {!collapsed && (
+            <NavLink to="/" className="text-lg font-bold text-foreground tracking-wide">
+              SRIDHAR <span className="text-primary">S</span>
+            </NavLink>
+          )}
+          <button
+            onClick={onToggleCollapse}
+            className="text-muted-foreground hover:text-foreground transition-colors p-1 rounded-md hover:bg-muted"
+          >
+            {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+          </button>
         </div>
         <nav className="flex flex-col gap-1 flex-1">
           {navLinks.map((link) => {
@@ -29,8 +42,11 @@ const Navbar = () => {
                 key={link.to}
                 to={link.to}
                 end
+                title={collapsed ? link.label : undefined}
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                    collapsed ? "justify-center" : ""
+                  } ${
                     isActive
                       ? "bg-primary text-primary-foreground"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted"
@@ -38,14 +54,16 @@ const Navbar = () => {
                 }
               >
                 <Icon size={18} />
-                {link.label}
+                {!collapsed && link.label}
               </NavLink>
             );
           })}
         </nav>
-        <div className="px-3 mt-auto">
-          <p className="text-xs text-muted-foreground/50">Python Developer</p>
-        </div>
+        {!collapsed && (
+          <div className="px-3 mt-auto">
+            <p className="text-xs text-muted-foreground/50">Python Developer</p>
+          </div>
+        )}
       </aside>
 
       {/* Mobile top bar */}
